@@ -1,0 +1,419 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>Модуль #1. Программирование. Основы веб-разработки / HTML.</title>
+
+    <link rel="stylesheet" href="css/reveal.css">
+    <link rel="stylesheet" href="css/theme/moon.css">
+
+    <!-- Theme used for syntax highlighting of code -->
+    <link rel="stylesheet" href="lib/css/zenburn.css">
+
+    <!-- Printing and PDF exports -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+
+<div class="reveal">
+    <div class="slides">
+
+        <section>
+            <h3>лекция #1</h3>
+            <h4>Программирование. Основы веб-разработки. HTML.</h4>
+        </section>
+
+        <section>
+            <h3>Короткое содержание</h3>
+            <ol style="font-size: 28px;">
+                <li>Что такое программирование?</li>
+                <li>Языки программирования</li>
+                <li>Семантика и синтаксис </li>
+                <li>Структуры данных</li>
+                <li>Парадигмы и идиомы</li>
+                <li>Теория алгоритмов и модели вычисления</li>
+                <li>Псевдокод</li>
+                <li>Антипаттерны</li>
+                <li>HTML</li>
+                <li>Домашнее задание</li>
+            </ol>
+        </section>
+
+        <section>
+            <img src="img/lec1/programmer.png" alt="" width="700" height="515">
+        </section>
+
+        <section>
+            <h3>Программирование</h3>
+            <ul>
+                <li>Что?</li>
+                <p>
+                    Процесс написания кода для управления чем-либо.
+                </p>
+                <li>Зачем?</li>
+                <p>
+                    Для автоматизации ежедневных процессов, обработки данных, веб-разработка, весело-же.
+                </p>
+            </ul>
+        </section>
+
+        <section>
+            <h3>Языки программирования</h3>
+            <p>набор правил(лексических, синтаксических и семантических) с помощью которых составляют
+                программы для управления каким-либо процессом</p>
+            <ul>
+                <li>Структурные (Basic / Pascal ...)</li>
+                <li>Процедурные (Lua, C, Matlab ...)</li>
+                <li>Логические (Prolog ...)</li>
+                <li>Объектно-ориентированные (C++, Delphi, Java, JavaScript, Objective-C, PHP, Python, Ruby, Swift ...)</li>
+                <li>Функциональные (Erlang, Haskell ...)</li>
+                <li>Мультипарадигмальные (C#, Scala ...)</li>
+            </ul>
+        </section>
+
+        <section>
+            <h3>Семантика</h3>
+            <p>формализации значений кострукций в языках программирования методов построения их математических моделей.</p>
+            <p>Смысловое значение операторов и основных конструкций.</p>
+            <hr>
+            <h3>Синтаксис</h3>
+            <p>набор правил описывающие правильное структуирование программы.</p>
+        </section>
+
+        <section>
+            <h3>Структура данных</h3>
+            <p>Единица позволяющая хранить / обрабатывать логически связанных данных.</p>
+            <p>В каждой структуре есть интерфейсы(функции) для добавления/поиска/изменения и удаления.</p>
+            <hr>
+            <h3>Тип данных</h3>
+            <p>множество допустимых значений которые могут принимать данные которые входят в данный тип</p>
+            <p>набор операций(методов) которые можно осуществлять над данным данного типа</p>
+        </section>
+
+        <section>
+            <h3>Парадигма программирования</h3>
+            <p>подход к программированию, определение стиля написания компьютерных программ</p>
+            <ul>
+                <li>Императивное программирование (от машины к человеку)</li>
+                <p>Инструкции, последовательность, чтение из памяти, запись в память</p>
+                <li>Декларативное программирование (от человека к машине))</li>
+                <p>Описание проблемы и ожидаемого результата(решения)</p>
+            </ul>
+        </section>
+
+        <section>
+            <h3>Идиома программирования</h3>
+            <p>выражение составной конструкции или же решение задачи методом комбинации встроенных элементов языка</p>
+            <ul>
+                <li>Инкремент</li>
+                <li>Обмен значениями</li>
+                <li>Бесконечный цикл</li>
+                <li>...</li>
+            </ul>
+        </section>
+
+        <section>
+            <h3>Теория алгоритмов</h3>
+            <p>Наука изучающая свойства и закономерности алгоритмови формирует формальные модели их представления.</p>
+            <h3>Что она делает?</h3>
+            <ul>
+                <li>Классифицирует алгоритмы по уровню сложности</li>
+                <li>Доказывает алгоритмическую неразрешимость</li>
+                <li>Контролирует качество алгоримов</li>
+                <li>Анализирует трудоемкость алгоритмов</li>
+            </ul>
+        </section>
+
+        <section>
+            <h3>Модели вычислений</h3>
+            <ul style="font-size: 30px;">
+                <li>Машина Тьюринга</li>
+                <p>Абстрактный исполнитель для формализации понятия алгоритма.</p>
+                <li>Лямбда-исчисление</li>
+                <p>Исследование лямбда-выражений.</p>
+                <li>Комбинаторная логика</li>
+                <p>Изучение и анализ природы парадоксов</p>
+                <li>Регистровые машины</li>
+                <p>RAM-машина - абстрактная вычислительная машина, моделирующая компьютер с произвольным
+                    доступом к памяти. Используется дла анализа алгоритма.</p>
+            </ul>
+        </section>
+
+        <section>
+            <h3>Псевдокод</h3>
+            <p>Язык описания алгоритма с использованием ключевых слов языка, но опускающий несущественные
+                подробности и специфический синтаксис</p>
+<pre><code class="python" data-trim contenteditable>
+# пример псевдокода
+если переменная A больше или равна 10, то:
+    # какая-то операция с переменной
+иначе:
+    # другая операция с переменной
+
+# пример реального кода
+if A >= 10:
+    # data-processing 1
+else:
+    # data-processing 2
+</code></pre>
+
+        </section>
+
+        <section>
+            <section>
+                <h3>Антипаттерны</h3>
+                <ul>
+                    <li>Спагетти-код</li>
+                    <li>Равиоли-код</li>
+                    <li>Пахлава-код</li>
+                    <li>Катамари-код</li>
+                </ul>
+            </section>
+            <section>
+                <h3>Спагетти-код</h3>
+                <img src="img/lec1/spaghetti.jpg" alt="">
+                <p>Плохо структурированная, запутанная и трудная для понимания программа в которой
+                    слишком много операторов перехода, исключений</p>
+            </section>
+             <section>
+                <h3>Равиоли-код</h3>
+                <img src="img/lec1/ravioli.jpg" alt="" width="530">
+                <p>Большое количество независимых компонентов</p>
+            </section>
+            <section>
+                <h3>Пахлава-код</h3>
+                <img src="img/lec1/pahlava.jpg" alt="">
+                <p>Слишком много слоев абстракции для простой задачи</p>
+            </section>
+            <section>
+                <h3>Катамари-код</h3>
+                <img src="img/lec1/katamari.jpg" alt="">
+                <p>Бывший чистый код, облепившийся функциональностью</p>
+            </section>
+        </section>
+
+        <section>
+            <section>
+                <h3>HTML</h3>
+                <p>HyperText Markup Language - язык гипертекстовой разметки</p>
+            </section>
+            <section>
+                <h3>Запрос / Ответ</h3>
+                <ul>
+                    <li>request</li>
+                    <li>response</li>
+                </ul>
+                <p>
+                    <img src="img/lec1/response-flow.jpg" alt="">
+                </p>
+            </section>
+            <section>
+                <h3>Разметка тегами</h3>
+                <img src="img/lec1/markup.png" alt="">
+            </section>
+            <section>
+                <h3>Минимальная структура документа</h3>
+<pre><code class="html" data-trim contenteditable>&lt;!DOCTYPE HTML>
+&lt;html>
+
+&lt;head>
+    &lt;meta charset="utf-8">
+    &lt;title>Title&lt;/title>
+&lt;/head>
+
+&lt;body>
+    &lt;!-- тело страницы -->
+&lt;/body>
+
+&lt;/html></code></pre>
+            </section>
+            <section>
+                <h2>Заголовки и параграфы</h2>
+<pre><code class="html" data-trim contenteditable>
+&lt;h1>Заголовок первого уровня&lt;/h1>
+&lt;h2>&lt;/h2>
+&lt;h3>&lt;/h3>
+&lt;h4>&lt;/h4>
+&lt;h5>&lt;/h5>
+&lt;h6>&lt;/h6>
+
+&lt;p>параграф&lt;/p>
+</code></pre>
+            </section>
+            <section>
+                <h2>ТЕГ div</h2>
+                <p class="fsz-24 text-left">
+                    Элемент &lt;div> является блочным элементом и предназначен для выделения фрагмента документа с целью изменения вида содержимого. Как правило, вид блока управляется с помощью стилей. Чтобы не описывать каждый раз стиль внутри тега, можно выделить стиль во внешнюю таблицу стилей, а для тега добавить атрибут class или id с именем селектора.
+                </p>
+<pre><code class="html" data-trim contenteditable>
+&lt;div>...&lt;/div>
+</code></pre>
+            </section>
+            <section>
+                <h2>Форматирование текста</h2>
+                <img src="img/lec1/format.png" alt="">
+            </section>
+            <section>
+                <h2>Аттрибуты</h2>
+                <img src="img/lec1/attrs.png" alt="">
+                <p>Порядок атрибутов в любом теге не имеет значения и на результат отображения элемента не влияет. Поэтому теги даного вида по своему действию равны.</p>
+<pre><code class="html" data-trim contenteditable>
+&lt;img src="/images/title.gif" width="438" height="118">
+
+&lt;img height="118" width="438" src="/images/title.gif">
+</code></pre>
+            </section>
+            <section>
+                <h2>Гиперссылки</h2>
+                <p class="fsz-26 text-left">
+                    Гиперссылка (или ссылка) это слово, группа слов, или изображение, которые вы можете кликнуть , чтобы перепрыгнуть на новый документ или раздел текущего документа.
+                    Когда вы перемещаете курсор над ссылкой в Веб странице, стрелка превразается в маленькую руку.
+                    Ссылки определяются в HTML используя тег &lt;a>.
+                    Тег &lt;a> может быть использован двумя способами:
+                </p>
+                <ul>
+                    <li>Чтобы создать ссылку на другой документ - используя атрибут href</li>
+                    <li>Чтобы сделать закладку внутри документа - используя атрибут name</li>
+                </ul>
+<pre><code class="fsz-32" class="html" data-trim contenteditable>
+&lt;a href="Адрес">Текст ссылки&lt;/a>
+</code></pre>
+            </section>
+            <section>
+                <h2>Изображения</h2>
+                <p>В HTML, изображения определяются с помощью тега &lt;img>.
+                    Тег &lt;img> пуст, он содержит только атрибуты и не закрывается</p>
+<pre><code style="font-size: 18px;" class="html" data-trim contenteditable>
+&lt;img src="url" alt="some_text" style="width:width;height:height;">
+
+&lt;img src="wrongname.gif" alt="HTML5 Icon" style="width:128px;height:128px;">
+                </code></pre>
+                <ul class="text-left">
+                    <li>*.jpg</li>
+                    <li>*.png</li>
+                    <li>*.gif</li>
+                </ul>
+            </section>
+            <section>
+                <h2>Таблицы</h2>
+<pre><code style="min-height: 400px" class="html" data-trim contenteditable>
+&lt;table style="width:100% border: 1px solid black">
+    &lt;tr>
+        &lt;th>Firstname&lt;/th>
+        &lt;th>Lastname&lt;/th>
+        &lt;th>Age&lt;/th>
+    &lt;/tr>
+    &lt;tr>
+        &lt;td>Jill&lt;/td>
+        &lt;td>Smith&lt;/td>
+        &lt;td>50&lt;/td>
+    &lt;/tr>
+    &lt;tr>
+        &lt;td>Eve&lt;/td>
+        &lt;td>Jackson&lt;/td>
+        &lt;td>94&lt;/td>
+    &lt;/tr>
+&lt;/table>
+</code></pre>
+            </section>
+            <section>
+                <h2>Результат</h2>
+                <img src="img/lec1/table.png" alt="">
+            </section>
+            <section>
+                <h2>Формы</h2>
+                <ul class="fsz-24 text-left">
+                    <li>action - Адрес программы или документа, который обрабатывает данные формы.</li>
+                    <li>autocomplete - Включает автозаполнение полей формы.</li>
+                    <li>method - Метод протокола HTTP.</li>
+                    <li>name - Имя формы.</li>
+                    <li>novalidate - Отменяет встроенную проверку данных формы на корректность ввода.</li>
+                </ul>
+                <pre><code class="html" data-trim contenteditable>
+&lt;form action="URL" method="POST" novalidate>
+    ...
+&lt;/form>
+                </code></pre>
+            </section>
+            <section>
+                <h2>ТЕГ Input</h2>
+                <p class="fsz-24 text-left">Тег &lt;input> является одним из разносторонних элементов формы и позволяет создавать разные элементы интерфейса и обеспечить взаимодействие с пользователем. Главным образом &lt;input> предназначен для создания текстовых полей, различных кнопок, переключателей и флажков. Хотя элемент &lt;input> не требуется помещать внутрь контейнера &lt;form>, определяющего форму, но если введенные пользователем данные должны быть отправлены на сервер, где их обрабатывает серверная программа, то указывать &lt;form> обязательно. </p>
+                <pre><code class="html" data-trim contenteditable>
+    &lt;input атрибуты>
+                </code></pre>
+            </section>
+            <section>
+                <h2>ТЕГ Input</h2>
+                <ul>
+                    <li>type - Сообщает браузеру, к какому типу относится элемент формы.</li>
+                    <li>value - Значение элемента.</li>
+                    <li>pattern - Устанавливает шаблон ввода.</li>
+                    <li>maxlength - Максимальное количество символов разрешенных в тексте.</li>
+                    <li>minlength - Минимальное количество символов разрешенных в тексте.</li>
+                    <li>placeholder - Выводит подсказывающий текст.</li>
+                    <li>readonly - Устанавливает, что поле не может изменяться пользователем.</li>
+                    <li>required - Обязательное для заполнения поле.</li>
+                </ul>
+            </section>
+            <section style="min-width:1300px; margin-left: -180px;">
+                 <h2>ТЕГ Input</h2>
+                 <img src="img/lec1/input1.png" style="float:left;" alt="">
+                 <img src="img/lec1/input2.png" style="float:right;" alt="">
+            </section>
+            <section>
+                <h2>ТЕГ Label</h2>
+                <p class="fsz-24 text-left">Тег &lt;label> устанавливает связь между определенной меткой, в качестве которой обычно выступает текст, и элементом формы (&lt;input>, &lt;select>, &lt;textarea>). Такая связь необходима, чтобы изменять значения элементов формы при нажатии курсором мыши на текст.</p>
+<pre><code class="html" data-trim contenteditable>
+&lt;label for="идентификатор">Текст&lt;/label>
+&lt;input id="идентификатор">
+</code></pre>
+            </section>
+            <section>
+                <h2>ТЕГ Button</h2>
+                <p class="fsz-24 text-left">
+                    Тег &lt;button> создает на веб-странице кнопки и по своему действию напоминает результат, получаемый с помощью тега &lt;input> (с атрибутом type="button | reset | submit"). В отличие от этого тега, &lt;button> предлагает расширенные возможности по созданию кнопок. Например, на подобной кнопке можно размещать любые элементы HTML, в том числе изображения. Используя стили можно определить вид кнопки путем изменения шрифта, цвета фона, размеров и других параметров.
+                </p>
+<pre><code class="html" data-trim contenteditable>
+&lt;form>
+    &lt;button>...&lt;/button>
+&lt;/form>
+</code></pre>
+            </section>
+        </section>
+
+        <section>
+            <h3>Домашнее задание</h3>
+            <ul>
+                <li>TBD</li>
+            </ul>
+        </section>
+
+    </div>
+</div>
+
+<script src="lib/js/head.min.js"></script>
+<script src="js/reveal.js"></script>
+<script>
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'plugin/markdown/marked.js' },
+            { src: 'plugin/markdown/markdown.js' },
+            { src: 'plugin/notes/notes.js', async: true },
+            { src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+
+</body>
+</html>
+
+
