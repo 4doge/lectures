@@ -1,0 +1,354 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>Модуль #2. Основы CSS.</title>
+
+    <link rel="stylesheet" href="css/reveal.css">
+    <link rel="stylesheet" href="css/theme/moon.css">
+
+    <!-- Theme used for syntax highlighting of code -->
+    <link rel="stylesheet" href="lib/css/zenburn.css">
+
+    <!-- Printing and PDF exports -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+
+<div class="reveal">
+    <div class="slides">
+
+        <section>
+            <h3>лекция #2</h3>
+            <h4>Основы CSS. Git / Github.</h4>
+        </section>
+
+        <section>
+            <h3>Короткое содержание</h3>
+            <ol style="font-size: 28px;">
+                <li>Что такое CSS?</li>
+                <li>Интеграция стилей на страницу</li>
+                <li>Простые и комплексные селекторы</li>
+                <li>Псевдоэлементы</li>
+                <li>Блочные и строчные элементы</li>
+                <li>Позиционирование</li>
+                <li>Github?</li>
+
+            </ol>
+        </section>
+
+        <section>
+            <h3>CSS</h3>
+            <p>Cascading Style Sheets - Каскадные таблицы стилей</p>
+            <ul>
+                <li>Что?</li>
+                <p>
+                    Язык стилей который определяет как будет выглядеть HTML документ.
+                </p>
+                <li>Зачем?</li>
+                <p>
+                    Интерактивность, UI/UX.
+                </p>
+            </ul>
+        </section>
+
+        <section>
+            <h3>Варианты подключения стилей</h3>
+            <ul>
+                <li>атрибут style к элементу</li>
+<pre><code class="html" data-trim contenteditable>
+&lt;p style="color: #a4a4a4">Gray text&lt;/p>
+</code></pre>
+                <li>тег style (в теге head)</li>
+
+<pre><code class="html" data-trim contenteditable>
+&lt;head>
+    ...
+    &lt;style>
+        p {
+            color: #a4a4a4;
+        }
+    &lt;/style>
+    ...
+&lt;/head>
+</code></pre>
+                <li>отдельный .css файл, подключаемый к странице</li>
+<pre><code class="html" data-trim contenteditable>
+<link rel="stylesheet" href="css/reveal.css">
+</code></pre>
+            </ul>
+        </section>
+
+
+        <section>
+            <section>
+                <h3>Простые селекторы</h3>
+                <p>Селектор - семантический элемент CSS, идентификатор элемента или группы элементов.</p>
+<pre><code class="css" data-trim contenteditable>
+селектор {
+    правило: значение;
+}
+</code></pre>
+                <p>Селектором может быть:</p>
+                <ul>
+                    <li>имя тега</li>
+                    <li>класс</li>
+                    <li>идентификатор</li>
+                </ul>
+            </section>
+            <section>
+               <h3>Каскад</h3>
+               <p> В CSS все стили идут каскадом сверху вниз, что позволяет добавлять другой стиль или переписывать его.</p>
+<pre><code class="css" data-trim contenteditable>
+селектор {
+    правило: значение;
+}
+селектор {
+    правило: другое-значение;
+}
+</code></pre>
+           </section>
+            <section>
+                <h3>Простые селекторы</h3>
+                <p>Если в качестве селектора используется имя тега, то в таком случае все элементы на странице
+                    данного тега будут следовать этому набору правил. Если же в этих элементах есть вложенные
+                    текстовые элементы, то они будут наследовать определенные правила.</p>
+<pre><code class="css" data-trim contenteditable>
+p {
+    font-weight: bold;
+    font-size: 24px;
+    color: red;
+}
+</code></pre>
+            </section>
+            <section>
+                <h3>Простые селекторы</h3>
+                <p>Класс элемента (атрибут class), позволяет применять стили для сразу нескольких элементов</p>
+<pre><code class="css" data-trim contenteditable>
+.square {
+    height: 200px;
+    width: 200px;
+}
+</code></pre>
+<pre><code class="html" data-trim contenteditable>
+&lt;div class="square">Content 1&lt;/div>
+&lt;div class="square">Content 2&lt;/div>
+</code></pre>
+            </section>
+            <section>
+                <h3>Простые селекторы</h3>
+                <p>Идентификатор элемента (атрибут id), по сколько на странице может быть только один уникальный
+                    идентификатор, значит стили будут применены только к одному элементу</p>
+<pre><code class="css" data-trim contenteditable>
+#square {
+    height: 200px;
+    width: 200px;
+}
+</code></pre>
+<pre><code class="html" data-trim contenteditable>
+&lt;div id="square">Content&lt;/div>
+</code></pre>
+            </section>
+        </section>
+
+        <section>
+            <section>
+                <h3>Комплексные селекторы</h3>
+                <p>Разновидности:</p>
+                <ul>
+                    <li>Вложенные селекторы</li>
+                    <li>Мультиклассы</li>
+                    <li>Соседние селекторы</li>
+                </ul>
+            </section>
+            <section>
+                <h3>Вложенные селекторы</h3>
+<pre><code class="css" data-trim contenteditable>
+.class .childClass {
+    ...
+}
+</code></pre>
+                <p>Тег с классом childClass лежит в теге с классом class</p>
+            </section>
+            <section>
+                <h3>Соседние селекторы</h3>
+<pre><code class="css" data-trim contenteditable>
+div + p {
+    ...
+}
+</code></pre>
+                <p>Тег p идет сразу после тега div</p>
+            </section>
+            <section>
+                <h3>Соседние селекторы</h3>
+<pre><code class="css" data-trim contenteditable>
+div ~ p {
+    ...
+}
+</code></pre>
+                <p>Тег p идет после тега div(между ними могут быть еще элементы)</p>
+            </section>
+            <section>
+<pre><code class="css" data-trim contenteditable>
+.class1.class2 {
+    ...
+}
+</code></pre>
+                <p>Элемент у которого есть и class1 и class2</p>
+            </section>
+            <section>
+<pre><code class="css" data-trim contenteditable>
+div > p {
+    ...
+}
+</code></pre>
+                <p>Первый уровень детей</p>
+            </section>
+            <section>
+<pre><code class="css" data-trim contenteditable>
+[атрибут="значение"] {
+    ...
+}
+</code></pre>
+                <p>Для атрибутов у элементов с определенными значениями</p>
+            </section>
+        </section>
+
+
+        <section>
+            <section>
+                <h3>Псевдоэлементы</h3>
+                <ul>
+                    <li>Псевдоклассы -  определяют динамическое состояние элементов, которое изменяется с помощью действий
+                        пользователя, а также положение в дереве документа.</li>
+                    <li>Псевдоэлементы -  позволяют задать стиль элементов не определённых в дереве элементов документа,
+                        а также генерировать содержимое, которого нет в исходном коде текста.</li>
+                </ul>
+            </section>
+            <section>
+                <h3>Псевдоклассы</h3>
+                <ul>
+                    <li>hover</li>
+                    <li>link</li>
+                    <li>active</li>
+                    <li>target</li>
+                    <li>focus</li>
+                    <li>....</li>
+                </ul>
+<pre><code class="css" data-trim contenteditable>
+p:hover {
+    ...
+}
+</code></pre>
+            </section>
+            <section>
+                <h3>Псеволэлементы</h3>
+                <ul>
+                    <li>first-letter</li>
+                    <li>first-line</li>
+                    <li>after</li>
+                    <li>before</li>
+                    <li>selection</li>
+                    <li>...</li>
+                </ul>
+<pre><code class="css" data-trim contenteditable>
+p::first-letter {
+    ...
+}
+</code></pre>
+            </section>
+        </section>
+
+        <section>
+            <section>
+                <h3>Блочные и строчные элементы</h3>
+                <p>Блочные:</p>
+                <ul style="font-size: 24px;">
+                    <li>абзацы - p</li>
+                    <li>списки - ul / ol</li>
+                    <li>заголовки - h1-h6</li>
+                    <li>статьи - article</li>
+                    <li>разделы - section</li>
+                    <li>длинные цитаты - blockquote</li>
+                </ul>
+                <p>Строчные:</p>
+                <ul style="font-size: 24px;">
+                    <li>ссылки - a</li>
+                    <li>выделение слова - em</li>
+                    <li>жирные слова - strong</li>
+                    <li>короткие цитаты - q</li>
+                    <li>аббревиатуры - abbr</li>
+                </ul>
+            </section>
+            <section>
+                <h3>Блочные и строчные элементы</h3>
+                <p>Блочные элементы предназначены для структурирования основных частей вашей страницы,
+                    путём разделения содержимого на логически связанные блоки.</p>
+                <p>Строчные элементы предназначены, чтобы разграничить часть текста и придать ему определённую
+                    функцию или смысл. Строчные элементы, как правило, содержат одно или несколько слов.</p>
+            </section>
+            <section>
+                <h3>Блочная модель</h3>
+                <p>Для веб-браузера элементы страницы представляют небольшие контейнеры или блоки. Такие блоки
+                    могут иметь различное содержимое - текст, изображения, списки, таблицы и другие элементы.
+                    Внутренние элементы блоков сами выступают в качестве блоков.</p>
+                <img src="img/lec2/blocks.png" alt="">
+            </section>
+            <section>
+                <h3>Позиционирование</h3>
+                <img src="img/lec2/positioning.png" alt="">
+            </section>
+            <section>
+                <h3>Позиционирование</h3>
+                <img src="img/lec2/float.png" alt="">
+            </section>
+            <section>
+                <h3>Позиционирование</h3>
+                <p>Свойство position позволяет точно задать новое местоположение блока относительно того места, где
+                    он находился бы в нормальном потоке документа. По умолчанию все элементы располагаются
+                    последовательно один за другим в том порядке, в котором они определены в структуре html-документа.
+                    Свойство не наследуется.</p>
+            </section>
+            <section style="min-width:1300px; margin-left: -180px;">
+                <h3>Позиционирование</h3>
+                <img src="img/lec2/pos1.png" style="float:left; margin-left: 100px;" height="300" width="" alt="">
+                <img src="img/lec2/pos2.png" style="float: right; margin-right: 100px;" height="300" alt="">
+            </section>
+        </section>
+
+        <section>
+            <h3>Домашнее задание</h3>
+            <ul>
+                <li>TBD</li>
+            </ul>
+        </section>
+
+    </div>
+</div>
+
+<script src="lib/js/head.min.js"></script>
+<script src="js/reveal.js"></script>
+<script>
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'plugin/markdown/marked.js' },
+            { src: 'plugin/markdown/markdown.js' },
+            { src: 'plugin/notes/notes.js', async: true },
+            { src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+
+</body>
+</html>
+
+
