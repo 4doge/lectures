@@ -1,0 +1,251 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>Модуль #3. Git.</title>
+
+    <link rel="stylesheet" href="css/reveal.css">
+    <link rel="stylesheet" href="css/theme/moon.css">
+
+    <!-- Theme used for syntax highlighting of code -->
+    <link rel="stylesheet" href="lib/css/zenburn.css">
+
+    <!-- Printing and PDF exports -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h3>лекция #3</h3>
+            <h4>Системы контроля версий. Git.</h4>
+        </section>
+
+        <section>
+            <h3>Короткое содержание</h3>
+            <ol style="font-size: 28px;">
+                <li>Что такое VCS?</li>
+                <li>Виды VCS</li>
+                <li>Сервисы для совместной разработки</li>
+                <li>Терминология</li>
+                <li>Работа с репозиторием. Основные команды.</li>
+                <li>...</li>
+            </ol>
+        </section>
+
+        <section>
+            <h3>Version control system</h3>
+            <p>Cascading Style Sheets - Каскадные таблицы стилей</p>
+            <ul>
+                <li>Что?</li>
+                <p>
+                    Способ хранения истории изменений в определенных документах.
+                </p>
+                <li>Зачем?</li>
+                <p>
+                    Версионирование, бэкап, разрешение конфликтов, цикл разработки, трекинг, ветвление.
+                </p>
+            </ul>
+        </section>
+
+        <section>
+            <h3>Виды систем контроля версий</h3>
+            <ul>
+                <li>Git</li>
+                <li>Subversion(CVS, SVN)</li>
+                <li>Mercurial</li>
+                <li>...</li>
+            </ul>
+        </section>
+
+        <section>
+            <h3>Сервисы для совместной разработки</h3>
+            <ul>
+                <li>Github (<a href="https://github.com/pricing">Pricing</a>)</li>
+                <li>Bitbucket (<a href="https://bitbucket.org/product/pricing">Pricing</a>)</li>
+                <li>Gitlab (<a href="https://about.gitlab.com/products/">Pricing</a>)</li>
+                <li>...</li>
+            </ul>
+        </section>
+
+        <section>
+            <h3>Терминология</h3>
+            <ul style="font-size: 24px;">
+                <li><b>Репозиторий (repository)</b> - место в котором хранятся файлы и история их изменений.</li>
+                <li><b>Коммит (commit)</b> - "чекпоинт", отметка об изменении в определенном файле(-ах).</li>
+                <li><b>Ветка (branch)</b> - направление истории, которое являет собой копию всего проекта в определенный момент.</li>
+                <li><b>Конфликт (conflict)</b> - ситуация, когда несколько пользователей сделали изменения в одном и том же файле. </li>
+                <li><b>Слияние (merge)</b> - объединений двух независимых изменений (коммитов или группы коммитов) в одну версию документа.</li>
+                <li><b>Получение (pull)</b> - обновить свои местные версии файлов до тех что находятся в хранилище (репозиторий).</li>
+                <li><b>Обновление (push)</b> - выкладывание новой версии документа.</li>
+                <li><b>Перенос (rebase)</b> - перемещение на более позднюю точку(коммит).</li>
+                <li><b>Версия (revision)</b> - версия документа (номер).</li>
+                <li><b>Тег (tag) -</b> метка в определенном месте и версии документа.</li>
+                <li><b>Мастер (master)</b> - основная ветка разработки проекта (по-умолчанию).</li>
+            </ul>
+        </section>
+
+        <section>
+            <h3>Инициализация репозитория</h3>
+<pre><code class="text" data-trim contenteditable>
+git init
+</code></pre>
+            <h3>Связь с удаленным репозиторием</h3>
+<pre style="width:900px;" ><code class="text" data-trim contenteditable>
+git remote add origin https://github.com/[username]/[repository-name].git
+</code></pre>
+        </section>
+
+        <section>
+            <h3>Добавление файлов</h3>
+            <p>Добавление конкретного файла</p>
+<pre><code class="text" data-trim contenteditable>
+git add app.py
+</code></pre>
+            <p>Добавление всех файлов сразу</p>
+<pre><code class="text" data-trim contenteditable>
+git add --all
+</code></pre>
+            <p>Добавление папки с файлами</p>
+<pre><code class="text" data-trim contenteditable>
+git add src/
+</code></pre>
+            <p>Отмена добавленных файлов</p>
+<pre><code class="text" data-trim contenteditable>
+git reset
+</code></pre>
+        </section>
+
+        <section>
+            <h3>Создание отметки в истории изменений(коммит)</h3>
+<pre><code class="text" data-trim contenteditable>
+git commit -m "Remove old bugs, add new one"
+</code></pre>
+        </section>
+
+        <section>
+            <h3>Отправить свой коммит в удаленное хранилище(репозиторий)</h3>
+<pre><code class="text" data-trim contenteditable>
+git push origin [имя ветки]
+</code></pre>
+        </section>
+
+        <section>
+            <h3>Получить последние изменения из удаленного репозитория</h3>
+<pre><code class="text" data-trim contenteditable>
+git pull origin [имя ветки]
+</code></pre>
+<pre><code class="text" data-trim contenteditable>
+git fetch origin
+</code></pre>
+<pre><code class="text" data-trim contenteditable>
+git clone https://github.com/[username]/[repository-name]
+</code></pre>
+        </section>
+
+        <section>
+            <h3>Репозиторий и история изменений</h3>
+            <img src="img/lec3/master-history.jpg" width="500" alt="">
+        </section>
+
+        <section>
+            <h4>Создание новой ветки для нововведения</h4>
+            <h5>(опять правки 😢)</h5>
+            <img src="img/lec3/experiment.jpg" width="550" alt="">
+        </section>
+
+        <section>
+            <h3>Ветвление</h3>
+            <p>Создание ветки</p>
+<pre><code class="text" data-trim contenteditable>
+git branch crazy-experiment
+</code></pre>
+            <p>Удаление ветки</p>
+<pre><code class="text" data-trim contenteditable>
+git branch -d crazy-experiment
+</code></pre>
+            <p>Переход на ветку</p>
+<pre><code class="text" data-trim contenteditable>
+git checkout crazy-experiment
+</code></pre>
+            <p>Текущая ветка и список всех веток</p>
+<pre><code class="text" data-trim contenteditable>
+git branch
+</code></pre>
+            <p>Создание и переход на ветку</p>
+<pre><code class="text" data-trim contenteditable>
+git checkout -b crazy-experiment
+</code></pre>
+        </section>
+
+        <section>
+            <h3>Коммит и пуш в "эксперимент"</h3>
+            <img src="img/lec3/commit-in-branch.jpg" width="600" alt="">
+        </section>
+        
+        <section>
+            <h3>Еще один коммит и пуш в "эсперимент"</h3>
+            <img src="img/lec3/one-more-commit-in-branch.jpg" width="600" alt="">
+        </section>
+
+        <section>
+            <h3>Слияние веток</h3>
+            <img src="img/lec3/merge.jpg" width="500" alt="">
+            <p>Переход на нужную ветку</p>
+<pre><code class="text" data-trim contenteditable>
+git checkout master
+</code></pre>
+            <p>Слияние</p>
+<pre><code class="text" data-trim contenteditable>
+git merge crazy-experiment
+</code></pre>
+        </section>
+
+        <section>
+            <h3>Удаление только что сделаного коммита</h3>
+<pre><code class="text" data-trim contenteditable>
+git reset --hard HEAD~1
+</code></pre>
+        <p>Если коммит был запушен, тогда нужно потереть его еще и в репозитории</p>
+<pre><code class="text" data-trim contenteditable>
+git push origin HEAD --force
+</code></pre>
+        </section>
+
+        <section>
+            <h3>Домашнее задание</h3>
+            <ul>
+                <li>TBD</li>
+            </ul>
+        </section>
+
+    </div>
+</div>
+
+<script src="lib/js/head.min.js"></script>
+<script src="js/reveal.js"></script>
+<script>
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'plugin/markdown/marked.js' },
+            { src: 'plugin/markdown/markdown.js' },
+            { src: 'plugin/notes/notes.js', async: true },
+            { src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+
+</body>
+</html>
+
+
