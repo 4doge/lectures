@@ -1,0 +1,474 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>Пробная лекция. Введение в Python.</title>
+
+    <link rel="stylesheet" href="css/reveal.css">
+    <link rel="stylesheet" href="css/theme/moon.css">
+
+    <!-- Theme used for syntax highlighting of code -->
+    <link rel="stylesheet" href="lib/css/zenburn.css">
+
+    <!-- Printing and PDF exports -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h3>лекция #4</h3>
+            <h4>Введение в Python</h4>
+            <p>A long time ago, in a galaxy far far away...</p>
+        </section>
+        <section>
+            <h3>Короткое содержание</h3>
+            <ol>
+                <li>Почему Python?</li>
+                <li>Преимущества, недостатки, версии</li>
+                <li>Синтаксис и семантика, оформление кода, PEP 8</li>
+                <li>Установка Python</li>
+                <li>Редакторы кода</li>
+                <li>Hello world!</li>
+                <li>Комментирование</li>
+                <li>Типы данных, переменные</li>
+                <li>Введение в классы</li>
+            </ol>
+        </section>
+        <section>
+            <section id="fragments">
+                <h3>Почему Python?</h3>
+                <ol>
+                    <li>Интерпретируемый <strike>(JVM, MSIL, LLVM)</strike></li>
+                    <li>ООП</li>
+                    <li>Разработка под:
+                        <ul>
+                            <li><b>web:</b> Django/Flask/Pyramid etc</li>
+                            <li><b>mobile:</b> Kivy, qPython etc</li>
+                            <li><b>scripts:</b> Crawlers, automatization etc</li>
+                        </ul></li>
+                    <li>Динамическая типизация</li>
+                    <li>Модули, они же батарейки</li>
+                    <li>Кроссплатформенность</li>
+                    <li>Синтаксис</li>
+                    <li>Сообщество</li>
+                    <li>Трудоустройство</li>
+                    <li class="fragment">Почему бы и нет?</li>
+                </ol>
+            </section>
+            <section>
+                <h3>Реализации</h3>
+                <ol>
+                    <li><b>CPython</b> - интерпритатор байт-кода, написан на C</li>
+                    <li><b>Jython</b> - интерпритатор и компилятор, Java</li>
+                    <li><b>IronPython</b> - компилятор, C# </li>
+                    <li><b>PyPy</b> - интерпритатор и JIT-компилятор, Python -> машинный код на ходу, Python</li>
+                    <li><b>Stackless</b> - интерпритатор, core-фича - микропотоки</li>
+                    <li>...</li>
+                </ol>
+            </section>
+            <section>
+                <h3>Версии</h3>
+                <ul>
+                    <li>2.7.12</li>
+                        <ol>
+                            <li>GIL (Global Interpreter Lock)</li>
+                            <li>__future__</li>
+                        </ol>
+                    <li>3.5.2</li>
+                        <ol>
+                            <li>unicode строки</li>
+                            <li>новый синтаксис</li>
+                            <li>другие батарейки</li>
+                            <li>asyncio</li>
+                        </ol>
+                    <strike><li>3.6.0b4</li></strike>
+                </ul>
+            </section>
+        </section>
+        <section>
+            <h3>Компиляция Python</h3>
+            <p>
+                Исходный код написанный на Python компилируется в байт-код для интерпритатора CPython.
+                При этом скомпилированный код мы можем найти в файле с расширением .pyc
+                (этот файл будет создан только если мы вызываем наш скрипт с помощью комманды import)
+            </p>
+            <p>
+                <b>JIT компиляция</b> - just in time, динамическая компиляция байт-кода в машинный код во время работы скрипта.
+            </p>
+            <h6>Исполняемые файлы</h6>
+            <p>pyinstaller / py2exe / cx_freeze / py2app</p>
+        </section>
+        <section>
+            <h3>Философия от Тима Петерсона</h3>
+            <a href="http://bit.ly/2h75xGd" target="_blank">http://bit.ly/2h75xGd</a>
+        </section>
+        <section>
+            <section>
+                <h3>Синтаксис и семантика</h3>
+                <ul>
+                    <li>Операторы</li>
+                    <li>Выражения</li>
+                    <li>Имена</li>
+                    <li>Строки документации(docstring)</li>
+                    <li>Директивы</li>
+                </ul>
+            </section>
+            <section>
+                <h3>Операторы</h3>
+                <ul>
+                    <li>if</li>
+                    <li>else</li>
+                    <li>while</li>
+                    <li>for</li>
+                    <li>class</li>
+                    <li>def</li>
+                    <li>return</li>
+                    <li>try / except / else / finally </li>
+                    <li>pass</li>
+                </ul>
+            </section>
+            <section>
+                <h3>Выражения</h3>
+                <ul>
+                    <li>+, сложение</li>
+                    <li>-, вычитание</li>
+                    <li>*, умножение</li>
+                    <li>**, возведение в степень</li>
+                    <li>/, деление</li>
+                    <li>//, целочисленное деление</li>
+                    <li>%, деление по модулю</li>
+                    <li>Равно, не равно, меньше или равно, больше или равно etc </li>
+                    <li>логические И, НЕ, ИЛИ etc</li>
+                    <li>...</li>
+                </ul>
+            </section>
+            <section>
+                <h3>Имена</h3>
+                <p>
+                    Имя должно начинаться с латинской буквы любого регистра или "_" после чего в имени могут содержаться
+                    и цифры(List_of_users, list_of_users, _list_of_user, _list_of_users1). В качестве имени нельзя
+                    использовать keywords(которые уже зарезервированы).
+                </p>
+            </section>
+            <section>
+                <h3>Строки документации(docstring)</h3>
+                <p>
+                    Python имеет встроенный модуль для документирования pydoc. В начале каждого класса или функции,
+                    можно вставить строку документации(docstring). В дальнейшем можно подключить автогенерируемую
+                    документацию (swagger, drfdoc etc) или использовать docstring для тестирования - doctest.
+                </p>
+            </section>
+            <section>
+                <h3>Директивы</h3>
+                <p>
+                    Указание кодировки исходного кода
+                    <pre><code class="python" data-trim contenteditable>
+                        # -*- coding: utf-8 -*-
+                    </code></pre>
+                    или
+                    <pre><code class="python" data-trim contenteditable>
+                        # coding: utf
+                    </code></pre>
+                </p>
+            </section>
+        </section>
+        <section>
+            <h3>GIL, Global Interpreter Lock</h3>
+            <p>
+                Метод синхронизации потоков, который используется в Python.
+            </p>
+            <p>
+                Создан для того что-бы предотвратить конфликты при одновременном вызове из разных потоков одного и
+                того же участка памяти.
+            </p>
+            <p>
+                Когда один поток работает, GIL блокирует все остальные.
+            </p>
+            <p>
+                <i>
+                    <b>Конфуз:</b> программа в 1 поток отработает быстрее чем программа в 10 потоков.
+                </i>
+            </p>
+        </section>
+        <section>
+            <h3>PEP 8</h3>
+            <p>
+                Style Guide for Python Code
+                <a href="https://www.python.org/dev/peps/pep-0008/" target="_blank">https://www.python.org/dev/peps/pep-0008/</a>
+            </p>
+        </section>
+        <section>
+            <section>
+                <h3>Установка Python</h3>
+                <p>
+                    Скачайте Python (2.7.12) с оф. сайта и запустите
+                    <a href="https://www.python.org/downloads/release/python-2712/" target="_blank">
+                        https://www.python.org/downloads/release/python-2712/
+                    </a>
+                </p>
+            </section>
+            <section>
+                <img src="img/1.png" alt="">
+            </section>
+            <section>
+                <img src="img/2.png" alt="">
+            </section>
+            <section>
+                <img src="img/3.png" alt="">
+            </section>
+            <section>
+                <img src="img/4.png" alt="">
+            </section>
+            <section>
+                <img src="img/5.png" alt="">
+            </section>
+            <section>
+                <img src="img/6.png" alt="">
+            </section>
+            <section>
+                <img src="img/7.png" alt="">
+            </section>
+            <section>
+                Добавьте туда:
+                <blockquote>
+                    C:\Python27\ <br>
+                    C:\Python27\Scripts\
+                </blockquote>
+                <img src="img/8.png" alt="" width="450" height="424">
+            </section>
+            <section>
+                <p>Проверьте, что все установлено правильно</p>
+                <p>Откройте командную строку, <br>(Win + R, и введите cmd, Enter)</p>
+                <p>Вывод версии</p>
+                 <blockquote>
+                    python --version
+                </blockquote>
+                <img src="img/9.png" alt="">
+            </section>
+        </section>
+        <section>
+            <h3>Редакторы кода</h3>
+            <ul>
+                <li>PyCharm, <a href="https://www.jetbrains.com/pycharm/" target="_blank">jetbrains.com/pycharm</a></li>
+                <li>Atom, <a href="https://atom.io">atom.io</a></li>
+                <li>Brackets, <a href="http://brackets.io">brackets.io</a></li>
+                <li>Sublime Text, <a href="https://www.sublimetext.com">sublimetext.com</a></li>
+            </ul>
+        </section>
+        <section>
+            <h2>Hello World!</h2>
+            <pre><code class="python" data-trim contenteditable>
+                print "Hello World"
+            </code></pre>
+            <img src="img/hello_world.png" alt="">
+        </section>
+        <section>
+            <h3>Комментарии</h3>
+            <pre><code class="python" data-trim contenteditable>
+# Comment before code
+
+print "Hello World" # comment inline with code
+
+"""Single line comment"""
+
+"""
+Few lines
+comment
+"""
+            </code></pre>
+        </section>
+        <section>
+            <section>
+                <h3>Типы данных</h3>
+                <p>Основные</p>
+                <ul>
+                    <li>Числа / Numbers (int / long / float / complex)</li>
+                    <li>Строка / String</li>
+                    <li>Список / List</li>
+                    <li>Кортеж / Tuple</li>
+                    <li>Словарь / Dictionary</li>
+                    <li>Сет / Set</li>
+                    <li>Булевый / Boolean</li>
+                </ul>
+             </section>
+            <section>
+                <h3>Числа</h3>
+                <p>Пример объявления числовых переменных разного типа</p>
+                <pre><code class="python" data-trim contenteditable>
+a = 13
+b = 1.7
+c = 51924361L
+d = 3.14j
+e = a * 2
+print type(a), type(b), type(c), type(d)
+print e
+# &lt;type 'int'> &lt;type 'float'> &lt;type 'long'> &lt;type 'complex'>
+# 26
+                </code></pre>
+            </section>
+            <section>
+                <h3>Строка</h3>
+                <p>Под строкой подразумевается все что находится между кавычек</p>
+                <p>Строки которые невозможно изменить всегда помечаются префиксом r</p>
+                <pre><code class="python" data-trim contenteditable>
+a = "Hello"
+b = 'happy'
+c = """world"""
+
+escape_string = "\"escaped string here"
+
+qwerty = r"abcd"
+
+print type(a), type(b), type(c), type(qwerty)
+full_string = a + b + c
+print full_string
+print escape_string
+# &lt;type 'str'> &lt;type 'str'> &lt;type 'str'> &lt;type 'str'>
+# Hellohappyworld
+# "escaped string here
+                </code></pre>
+            </section>
+            <section>
+                <h3>Форматирование строк</h3>
+                <pre><code style="min-height:480px; font-size: 14px;" class="python" data-trim contenteditable>
+a = "first"
+b = "second"
+c = "third"
+
+full_string_concatenate = a + " " + b + " " + c + "!"
+full_string_with_format = "{} {} {}{}".format(a, b, c, "!")
+full_string_with_num_format = "{0} {1} {2}{3}".format(a, b, c, "!")
+full_string_with_key_format = "{key1} {key2} {key3}{key4}".format(key1=a, key2=b, key3=c, key4="!")
+full_string_with_all = "{0} {key2} {key3}{key4}".format(a, key2=b, key3=c, key4="!")
+
+print full_string_concatenate
+print full_string_with_format
+print full_string_with_num_format
+print full_string_with_key_format
+print full_string_with_all
+# first second third!
+# first second third!
+# first second third!
+# first second third!
+# first second third!
+
+                </code></pre>
+            </section>
+            <section>
+                <h3>Список</h3>
+                <p>Массив из нескольких элементов(или пустой)</p>
+                <pre><code class="python" data-trim contenteditable>
+a = []
+b = [1, 2, 3]
+c = [1, "hello world", 2]
+
+print type(a)
+print a, b, c
+# &lt;type 'list'>
+# [] [1, 2, 3] [1, 'hello world', 2]
+                </code></pre>
+            </section>
+            <section>
+                <h3>Кортеж</h3>
+                <p>Список, который не может быть изменен</p>
+                <pre><code class="python" data-trim contenteditable>
+a = (True, 12, 3.2, 'hello', 1.7)
+
+print type(a)
+print a
+# &lt;type 'tuple'>
+# (True, 12, 3.2, 'hello', 1.7)
+                </code></pre>
+            </section>
+            <section>
+                <h3>Словарь</h3>
+                <p>Неотсортированная коллекция элементов, доступ к которой можно получить только по ключу</p>
+                <pre><code class="python" data-trim contenteditable>
+test_dict = {
+    "number": 23,
+    2: True,
+    "test_list": [1,2,3]
+}
+
+print type(test_dict)
+print test_dict
+print test_dict["number"]
+print test_dict[2]
+
+# &lt;type 'dict'>
+# {2: True, 'number': 23, 'test_list': [1, 2, 3]}
+# 23
+# True
+
+                </code></pre>
+            </section>
+            <section>
+                <h3>Сет</h3>
+                <p>Коллекция уникальных элементов</p>
+                <pre><code class="python" data-trim contenteditable>
+s = {"hello", "world", "world"}
+print s, type(s)
+
+# set(['world', 'hello']) &lt;type 'set'>
+                </code></pre>
+            </section>
+            <section>
+                <h3>Булевый</h3>
+                <p>True / False</p>
+                <pre><code class="python" data-trim contenteditable>
+flag = True
+print type(flag), flag
+flag = False
+print type(flag), flag
+
+# &lt;type 'bool'> True
+# &lt;type 'bool'> False
+                </code></pre>
+            </section>
+            <section>
+                <h3>Преобразование из одного типа в другой</h3>
+                <p>Для этого достаточно использовать функцию обозначающую тип который Вы хотите получить и передать в
+                    нее параметр</p>
+                <pre><code class="python" data-trim contenteditable>
+num = 1
+print type(num), num
+num = str(num)
+print type(num), num
+
+# &lt;type 'int'> 1
+# &lt;type 'str'> 1
+                </code></pre>
+            </section>
+        </section>
+        <section>
+            <h3>May the Python be with you.</h3>
+        </section>
+    </div>
+</div>
+
+<script src="lib/js/head.min.js"></script>
+<script src="js/reveal.js"></script>
+<script>
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'plugin/markdown/marked.js' },
+            { src: 'plugin/markdown/markdown.js' },
+            { src: 'plugin/notes/notes.js', async: true },
+            { src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+
+</body>
+</html>
