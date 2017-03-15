@@ -1,4 +1,24 @@
-from datetime import datetime, timedelta
+# import os
+#
+# # print(os.listdir())
+#
+# abs_path_to_file = os.path.abspath(__file__)
+# print(os.path.dirname(abs_path_to_file))
+#
+#
+# print(os.listdir(os.path.dirname(abs_path_to_file)))
+
+
+
+# from datetime import datetime, timedelta
+#
+# birthday = "2017-03-10"  # string
+# print(birthday, type(birthday))
+# birthday_datetime = datetime.strptime(birthday, "%Y-%m-%d")  # datetime.datetime obj
+# print(birthday_datetime, type(birthday_datetime))
+# birthday_str = birthday_datetime.strftime("%m/%d/%Y")  # string
+# print(birthday_str, type(birthday_str))
+
 
 
 # now = datetime.now()
@@ -74,20 +94,23 @@ from datetime import datetime, timedelta
 
 # python test.py -i test.txt test2.txt
 
-from argparse import ArgumentParser
+# from argparse import ArgumentParser
+#
+# parser = ArgumentParser()
+#
+# parser.add_argument("-f", dest="first_name",
+#                     help="input first", metavar="first")
+# parser.add_argument("-l", dest="last_name",
+#                     help="input last")
+#
+# args = parser.parse_args()
+#
+# print(args)
+# print(args.first_name)
+# print(args.last_name)
+#
+#
 
-parser = ArgumentParser()
-
-parser.add_argument("-f", dest="first_name",
-                    help="input first", metavar="first")
-parser.add_argument("-l", dest="last_name",
-                    help="input last")
-
-args = parser.parse_args()
-
-print(args)
-print(args.first_name)
-print(args.last_name)
 
 
 
