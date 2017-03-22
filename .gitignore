@@ -1,2 +1,5 @@
 .idea
 __pycache__
+chromedriver
+phantomjs
+ghostdriver.log

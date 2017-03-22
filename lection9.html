@@ -1,0 +1,578 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>ОПП.</title>
+
+    <link rel="stylesheet" href="css/reveal.css">
+    <link rel="stylesheet" href="css/theme/moon.css">
+
+    <!-- Theme used for syntax highlighting of code -->
+    <link rel="stylesheet" href="lib/css/zenburn.css">
+
+    <!-- Printing and PDF exports -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+
+<div class="reveal">
+    <div class="slides">
+        <!-- 1 слайд, Название лекции -->
+        <section>
+            <h3>лекция #9</h3>
+            <h4>Объектно-ориентированное программирование</h4>
+        </section>
+        <!-- 2 слайд, Короткое содержание -->
+        <section>
+            <h3>Короткое содержание</h3>
+            <ol style="font-size: 28px;">
+                <li>Терминология</li>
+                <li>Класс и Объект</li>
+                <li>Основные понятия</li>
+                <li>SOLID</li>
+                <li>self</li>
+                <li>Классы в подробностях</li>
+                <li>...</li>
+            </ol>
+        </section>
+        <!-- 3 слайд, Терминология -->
+        <section>
+            <h3>Терминология</h3>
+            <p><b>ООП</b> - парадигма программирования, основная концепция которой состоит в понятиях объектов и классов.</p>
+        </section>
+        <!-- 4 слайд, Класс -->
+        <section>
+            <h3>Класс</h3>
+            <p><b>Класс</b> - пользовательский, универсальный тип данных который включает в себя набор полей и
+                методов для работы с объектами. Удобный и простой интерфейс для доступа к свойствам объекта.</p>
+        </section>
+        <!-- 5 слайд, Объект -->
+        <section>
+            <h3>Объект</h3>
+            <p><b>Объект</b> - сущность, одиночный экземпляр класса имеющий какие-либо (определенные классом)
+                атрибуты и операции для их обработки  </p>
+        </section>
+        <!-- 6 слайд, Основные понятия -->
+        <section>
+            <section>
+                <h3>Основные понятия</h3>
+                <ul>
+                    <li>Наследование</li>
+                    <li>Инкапсуляция</li>
+                    <li>Полиморфизм</li>
+                    <li>Абстракция</li>
+                </ul>
+            </section>
+            <section>
+                <h3>Наследование</h3>
+                <p>Свойство которое позволяет описать новый тип данных(Класс#1) на основе уже существующего
+                    (Класс#2), при этом этот Класс#1 получит часть или все свойства Класса#2.</p>
+            </section>
+            <section>
+                <h3>Инкапсуляция</h3>
+                <p>Свойство которое позволяет ограничить доступ одних модулей к другим. Так же позволяет связывать
+                    данные с методами для обработки этих данных.</p>
+            </section>
+            <section>
+                <h3>Полиморфизм</h3>
+                <p>Свойство которое позволяет использовать объекты с одинаковым интерфейсом без подробной информации
+                    об объекте или его внутренней структуре.</p>
+            </section>
+            <section>
+                <h3>Абстракция</h3>
+                <p>Описание свойств объекта, которые ярко отличают его от всех остальных объектов.
+                    Выделение значимой информации из общей.</p>
+            </section>
+        </section>
+        <!-- 7 слайд, SOLID -->
+        <section>
+            <section>
+                <h3>SOLID</h3>
+                <p>single responsibility, open-closed, Liskov substitution, interface segregation и dependency inversion</p>
+                <p>Сборка принципов, предназначенных для создания легко-поддерживаемой и расширяемой системы.</p>
+                <p>Рефакторинг кода до тех пор, пока он не станет "идеальным".</p>
+            </section>
+            <section>
+                <h3>Принципы SOLID</h3>
+                <table style="font-size: 28px;">
+                    <thead>
+                    <tr>
+                        <th>Letter</th>
+                        <th>Abbreviation</th>
+                        <th>Definition</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>S</td>
+                            <td>SRP</td>
+                            <td>Принцип единственной ответственности (The Single Responsibility Principle)</td>
+                        </tr>
+                        <tr>
+                            <td>O</td>
+                            <td>OCP</td>
+                            <td>Принцип открытости/закрытости (The Open Closed Principle)</td>
+                        </tr>
+                        <tr>
+                            <td>L</td>
+                            <td>LSP</td>
+                            <td>Принцип подстановки Барбары Лисков (The Liskov Substitution Principle)</td>
+                        </tr>
+                        <tr>
+                            <td>I</td>
+                            <td>ISP</td>
+                            <td>Принцип разделения интерфейса (The Interface Segregation Principle)</td>
+                        </tr>
+                        <tr>
+                            <td>D</td>
+                            <td>DIP</td>
+                            <td>Принцип инверсии зависимостей (The Dependency Inversion Principle)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+            <section>
+                <h3>Признаки плохо проекта</h3>
+                <ul>
+                    <li>Закрепощённость</li>
+                    <li>Неустойчивость</li>
+                    <li>Неподвижность</li>
+                    <li>Вязкость</li>
+                    <li>Неоправданная сложность</li>
+                    <li>Неопределенность</li>
+                </ul>
+            </section>
+        </section>
+        <!-- 8 слайд, Создание класса, принципы ООП -->
+        <section>
+            <section>
+                <h3>Аргумент - self</h3>
+                <p>Первым аргументом каждого метода класса всегда является текущий экземпляр класса.</p>
+            </section>
+            <section>
+                <h3>Классы</h3>
+                <p>Классы являют собой пользовательский тип данных</p>
+                 <pre><code class="python" data-trim contenteditable>
+# init class called Man
+class Man(object):
+    """
+    Some description about that class
+    """
+    pass
+                </code></pre>
+                <pre><code class="python" data-trim contenteditable>
+# init class called Man
+class Man(object):
+    """
+    Some description about that class
+    """
+    def __init__(self, first_name, last_name):
+        # self - is our created object with Man type
+        self.first_name = first_name
+        self.last_name = last_name
+                </code></pre>
+            </section>
+            <section>
+                <h3>Создание объекта класса</h3>
+                <pre><code style="min-height: 420px;" class="python" data-trim contenteditable>
+# init class called Man
+class Man(object):
+    """
+    Some description about that class
+    """
+    def __init__(self, first_name, last_name):
+        # self - is our created object with Man type
+        self.first_name = first_name
+        self.last_name = last_name
+
+
+man_obj = Man("John", "Smith")
+print type(man_obj)
+print man_obj.first_name
+print man_obj.last_name
+# &lt;class '__main__.Man'>
+# John
+# Smith
+                </code></pre>
+            </section>
+            <section>
+                <h3>Объекта класса с заранее предопределенными параметрами</h3>
+                <pre><code style="min-height: 500px;" class="python" data-trim contenteditable>
+# init class called Man
+class Man(object):
+    """
+    Some description about that class
+    """
+    is_love_python = True
+    def __init__(self, first_name, last_name):
+        # self - is our created object with Man type
+        self.first_name = first_name
+        self.last_name = last_name
+
+
+man_obj = Man("John", "Smith")
+print type(man_obj)
+print man_obj.first_name
+print man_obj.last_name
+print man_obj.is_love_python
+# &lt;class '__main__.Man'>
+# John
+# Smith
+# True
+                </code></pre>
+            </section>
+            <section>
+                <h3>Пользовательские методы класса</h3>
+                <pre><code style="min-height: 500px;" class="python" data-trim contenteditable>
+# init class called Man
+class Man(object):
+    """
+    Some description about that class
+    """
+    is_love_python = True
+    def __init__(self, first_name, last_name):
+        # self - is our created object with Man type
+        self.first_name = first_name
+        self.last_name = last_name
+
+    def get_full_name(self):
+        return "{} {}".format(self.first_name,
+                              self.last_name)
+
+
+man_obj = Man("John", "Smith")
+print type(man_obj)
+print man_obj.first_name
+print man_obj.last_name
+print man_obj.is_love_python
+print man_obj.get_full_name()
+# &lt;class '__main__.Man'>
+# John
+# Smith
+# True
+# John Smith
+                </code></pre>
+            </section>
+            <section>
+                <h3>Задание</h3>
+                <p>
+                    Написать программу, которая будет создавать объект класса исходя из запрошеного у пользователя числа. <br>
+                    <ul>
+                        <li>Если число [0:10] - то объект Класса#1, возвести в квадрат и вернуть результат </li>
+                        <li>Если число [10:100] - то объект Класса#2, прибавить к этому число 12 и вернуть результат </li>
+                        <li>Если число [100:1000] - то объект Класса#3, умножить число на 0.73 и вернуть результат </li>
+                    </ul>
+                </p>
+            </section>
+            <section>
+                <h3>Наследование классов</h3>
+                <pre><code style="min-height: 500px;" class="python" data-trim contenteditable>
+
+# init class called Human
+class Human(object):
+    is_alive = True
+    def __init__(self):
+        pass
+
+# init class called Man
+class Man(Human):
+    """
+    Some description about that class
+    """
+    is_love_python = True
+    def __init__(self, first_name, last_name):
+        # self - is our created object with Man type
+        self.first_name = first_name
+        self.last_name = last_name
+
+    def get_full_name(self):
+        return "{} {}".format(self.first_name,
+                             self.last_name)
+
+
+man_obj = Man("John", "Smith")
+print type(man_obj)
+print man_obj.first_name
+print man_obj.last_name
+print man_obj.is_love_python
+print man_obj.get_full_name()
+print man_obj.is_alive
+# &lt;class '__main__.Man'>
+# John
+# Smith
+# True
+# John Smith
+# True
+
+                </code></pre>
+            </section>
+            <section>
+                <h3>Полиморфизм классов (функция)</h3>
+                <pre><code style="min-height: 500px;" class="python" data-trim contenteditable>
+class Man(object):
+    def __init__(self, first_name, last_name):
+        self.first_name = first_name
+        self.last_name = last_name
+
+    def say_something(self):
+        print "Hello, i'm man."
+
+class Woman(object):
+    def __init__(self, first_name, last_name):
+        self.first_name = first_name
+        self.last_name = last_name
+
+    def say_something(self):
+        print "Hey, i'm woman."
+
+def start_dialogue(ClassObj):
+    ClassObj.say_something()
+
+man = Man("John", "Doe")
+woman = Woman("Marry", "Smith")
+
+start_dialogue(man)
+start_dialogue(woman)
+
+# Hello, i'm man.
+# Hey, i'm woman.
+                </code></pre>
+            </section>
+            <section>
+                <h3>Полиморфизм классов <br>(абстрактный класс)</h3>
+                <pre><code style="min-height: 500px;" class="python" data-trim contenteditable>
+class Human:
+    def __init__(self, first_name, last_name):
+        self.first_name = first_name
+        self.last_name = last_name
+
+    def say_something(self):
+        raise NotImplementedError("Can't find that method")
+
+class Man(Human):
+    def say_something(self):
+        print "Hello, i'm man."
+
+class Woman(Human):
+    def say_something(self):
+        print "Hey, i'm woman."
+
+class Kid(Human):
+    pass
+
+man = Man("John", "Doe")
+woman = Woman("Marry", "Smith")
+kid = Kid("Jack", "Nicholson")
+
+man.say_something()
+woman.say_something()
+kid.say_something()
+# Hello, i'm man.
+# Hey, i'm woman.
+# Traceback (most recent call last):
+#   File "test.py", line 26, in &lt;module>
+#     kid.say_something()
+#   File "test.py", line 7, in say_something
+#     raise NotImplementedError("Can't find that method")
+# NotImplementedError: Can't find that method
+
+                </code></pre>
+            </section>
+            <section>
+                <h3>Волшебство с _</h3>
+                <p>Одиночный "_" в имени говорит о том, что метод/переменная не предназначенные для использования
+                    вне методов класса</p>
+                <p>Двойной "__" говорят о том что атрибут недоступен по этому имени.</p>
+            </section>
+            <section>
+                <h3>Инкапсуляция классов <br>(приватные методы)</h3>
+                <p>Приватный метод никогда не может быть вызван вне класса.</p>
+                <pre><code class="python" data-trim contenteditable>
+class Man(object):
+    def __init__(self, first_name, last_name):
+        self.first_name = first_name
+        self.last_name = last_name
+
+    def say_something(self):
+        print self.__work()
+        print "Hello, i'm man."
+
+    def __work(self):
+        return "Working..."
+
+man = Man("John", "Doe")
+
+man.say_something()
+man.__work()
+# Working...
+# Hello, i'm man.
+# Traceback (most recent call last):
+#   File "test.py", line 16, in &lt;module>
+#     man.__work()
+# AttributeError: 'Man' object has no attribute '__work'
+
+                </code></pre>
+            </section>
+            <section>
+                <h3>Инкапсуляция классов <br>(приватные переменные)</h3>
+                <p>Приватные переменные никогда не могут быть использованны вне класса.</p>
+                <pre><code class="python" data-trim contenteditable>
+class Man(object):
+    __age = 0
+
+    def __init__(self, first_name, last_name):
+        self.__age = 28
+        self.first_name = first_name
+        self.last_name = last_name
+
+
+    def get_age(self):
+        return "{} year(s) old.".format(self.__age)
+
+man = Man("John", "Doe")
+
+print man.first_name, man.last_name
+print man.get_age()
+man.__age = 32
+print man.get_age()
+# John Doe
+# 28 year(s) old.
+# 28 year(s) old.
+                </code></pre>
+            </section>
+        </section>
+        <!-- 9 слайд, Метаклассы -->
+        <section>
+            <h3>Метаклассы</h3>
+            <p>Класс объектами которого являются другие классы.</p>
+            <p>Расширение классов новыми возможностями</p>
+        </section>
+        <!-- 10 слайд, Дескрипторы -->
+        <section>
+            <section>
+                <h3>Дескрипторы</h3>
+                <p>
+                    Объект у которого определенны:
+                </p>
+                <ul>
+                    <li>__get__</li>
+                    <li>__set__</li>
+                    <li>__delete__</li>
+                </ul>
+            </section>
+            <section>
+                <h3>Типы дескрипторов</h3>
+                <ul>
+                    <li>data (__set__ и __get__)</li>
+                    <li>non-data (__get__)</li>
+                </ul>
+            </section>
+            <section>
+                <h3>data descriptor</h3>
+                <pre><code class="python" data-trim contenteditable>
+class RevealAccess(object):
+    def __init__(self, init_val=None, name='var'):
+        self.val = init_val
+        self.name = name
+
+    def __get__(self, obj, obj_type):
+        print 'Get value', self.name
+        return self.val
+
+    def __set__(self, obj, val):
+        print 'Set value' , self.name
+        self.val = val
+
+class MyClass(object):
+    x = RevealAccess(10, 'var "x"')
+    y = 5
+
+m = MyClass()
+print m.x
+m.x = 11
+print m.x
+print m.y
+
+
+# Get value var "x"
+# 10
+# Set value var "x"
+# Get value var "x"
+# 11
+# 5
+
+                </code></pre>
+            </section>
+        </section>
+        <!-- 11 слайд, Итераторы -->
+        <section>
+            <h3>Итераторы</h3>
+            <pre><code class="python" style="min-height: 450px;" data-trim contenteditable>
+class ExampleIterator(object):
+    def __init__(self, filename):
+        self.fd = open(filename,'r')
+
+    def __iter__(self):
+        return self
+
+    def next(self):
+        line = self.fd.readline()
+        if line != '':
+            line = line.rstrip('\n')
+            return line.upper()
+        raise StopIteration
+
+
+file_data = SimpleIterator('test.txt')
+for item in file_data:
+    print item
+                </code></pre>
+        </section>
+        <!-- 12 слайд, Генераторы -->
+        <section>
+            <h3>Генераторы</h3>
+            <p>Функция которая возвращает оператор yield с данными.</p>
+            <pre><code class="python" data-trim contenteditable>
+def power(start):
+	for i in xrange(start, start+5):
+	    yield i*i
+
+print power(5)
+# &lt;generator object power at 0x107858a00>
+                </code></pre>
+        </section>
+        <section style="font-size: 30px;">
+            <h3>Домашнее задание</h3>
+            <ul>
+                <li>TBD</li>
+            </ul>
+        </section>
+    </div>
+</div>
+
+                <!--<pre><code class="python" data-trim contenteditable>-->
+                <!--</code></pre>-->
+<script src="lib/js/head.min.js"></script>
+<script src="js/reveal.js"></script>
+<script>
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'plugin/markdown/marked.js' },
+            { src: 'plugin/markdown/markdown.js' },
+            { src: 'plugin/notes/notes.js', async: true },
+            { src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+
+</body>
+</html>
