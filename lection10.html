@@ -1,0 +1,551 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>Базы данных.</title>
+
+    <link rel="stylesheet" href="css/reveal.css">
+    <link rel="stylesheet" href="css/theme/moon.css">
+
+    <!-- Theme used for syntax highlighting of code -->
+    <link rel="stylesheet" href="lib/css/zenburn.css">
+
+    <!-- Printing and PDF exports -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+
+<div class="reveal">
+    <div class="slides">
+        <!-- 1 слайд, Название лекции -->
+        <section>
+            <h3>лекция #10</h3>
+            <h4>Базы данных</h4>
+        </section>
+        <!-- 2 слайд, Короткое содержание -->
+        <section>
+            <h3>Короткое содержание</h3>
+            <ol style="font-size: 28px;">
+                <li>Вошебство с _ и __</li>
+                <li>Итераторы</li>
+                <li>Генераторы</li>
+                <li>Генераторные выражения</li>
+                <li>Теория БД</li>
+                <li>Типизация</li>
+                <li>Реляционные БД</li>
+                <li>ACID</li>
+            </ol>
+        </section>
+        <!-- 3 слайд, Волшебство _ / __ -->
+        <section>
+            <section>
+                <h3>Возвращаясь в Хогвартс</h3>
+                <img src="https://pp.vk.me/c626919/v626919309/2ed77/f9uIoKjQmHE.jpg" alt="">
+                <p>Вжух, _ и __</p>
+            </section>
+            <section>
+                <h3>Один или два?</h3>
+                <p>
+                    _ означает что метод/переменная не должны быть вызваны вне класса(не индексируются при импортах)
+                </p>
+                <p>
+                    __ означает что метод/переменная будут защищенны от перезаписи путем переименнования
+                </p>
+            </section>
+            <section>
+                <h3>один _</h3>
+                <pre><code class="python" data-trim contenteditable>
+class Man(object):
+    _age = 18
+
+    def __init__(self, name, age):
+        self.age_control = False if age < self._age else True
+        self.name = name
+
+man_one = Man("John", 24)
+man_two = Man("Mike", 12)
+print man_one.name, man_one.age_control
+print man_two.name, man_two.age_control
+print man_two._age # bad practice using internal properties outside
+# John True
+# Mike False
+# 18
+                </code></pre>
+            </section>
+            <section>
+                <h3>два __</h3>
+                <pre><code class="python" data-trim contenteditable>
+class A(object):
+    def _internal_use(self):
+        pass
+    def __method_name(self):
+        pass
+
+print dir(A())
+# ['_A__method_name', '__class__', '__delattr__', '__dict__',
+# '__doc__', '__format__', '__getattribute__', '__hash__',
+# '__init__', '__module__', '__new__', '__reduce__',
+# '__reduce_ex__', '__repr__', '__setattr__', '__sizeof__',
+# '__str__', '__subclasshook__', '__weakref__', '_internal_use']
+
+                </code></pre>
+            </section>
+        </section>
+        <!-- 4 слайд, Итераторы -->
+        <section>
+            <section>
+                <h3>Итераторы. Самый простой способ итерации</h3>
+                <pre><code class="python" data-trim contenteditable>
+for item in ...:
+    print item
+                </code></pre>
+            </section>
+            <section>
+                <h3>Для чего?</h3>
+                <ul>
+                    <li>Обработка больших наборов данных</li>
+                    <li>Возможность получить только часть элементов набора данных</li>
+                </ul>
+            </section>
+            <section>
+                <h3>iter</h3>
+                <pre><code class="python" style="min-height: 430px;" data-trim contenteditable="">
+x = iter([1, 2, 3, 4])
+print type(x)
+print x
+print x.next()
+print x.next()
+print x.next()
+print x.next()
+print x.next()
+# &lt;type 'listiterator'>
+# &lt;listiterator object at 0x106641210>
+# 1
+# 2
+# 3
+# 4
+# Traceback (most recent call last):
+#   File "test.py", line 8, in &lt;module>
+#     print x.next()
+# StopIteration
+                </code></pre>
+            </section>
+            <section>
+                <h3>Пример итератора для считывания строк из файла</h3>
+            <pre><code class="python" style="min-height: 500px;" data-trim contenteditable>
+class ExampleIterator(object):
+    def __init__(self, filename):
+        self.fd = open(filename,'r')
+
+    def __iter__(self):
+        return self
+
+    def next(self):
+        line = self.fd.readline()
+        if line != '':
+            line = line.rstrip('\n')
+            return line.upper()
+        raise StopIteration
+
+
+file_data = ExampleIterator('test.txt')
+for item in file_data:
+    print item
+# 1
+# 2
+# 3
+                </code></pre>
+            </section>
+        </section>
+        <!-- 5 слайд, Генераторы -->
+        <section>
+            <h3>Генераторы</h3>
+            <p style="font-size: 24px;">Функция которая возвращает оператор yield с данными.</p>
+            <p style="font-size: 24px;">yield работает как return, но он помнит состояние и данные предыдущего вызова.</p>
+            <pre><code class="python" style="min-height: 450px;" data-trim contenteditable>
+def yrange(n):
+    i = 0
+    while i < n:
+        yield i
+        i += 1
+y = yrange(3)
+print y
+print y.next()
+print y.next()
+print y.next()
+print y.next()
+# &lt;generator object yrange at 0x1021f0aa0>
+# 0
+# 1
+# 2
+# Traceback (most recent call last):
+#   File "test.py", line 12, in &lt;module>
+#     print y.next()
+# StopIteration
+                </code></pre>
+        </section>
+        <!-- 6 слайд, Генераторные выражения -->
+        <section>
+            <h3>Генераторные выражения</h3>
+            <p>Генератор здесь и сейчас</p>
+            <pre><code class="python" data-trim contenteditable>
+print sum(x*2 for x in xrange(10,12))
+# 42
+                </code></pre>
+        </section>
+        <!-- 7 слайд, Терминология БД -->
+        <section>
+            <h3>Что такое БД?</h3>
+            <p>систематизированное хранилище для информации</p>
+        </section>
+        <!-- 8 слайд, Типы БД -->
+        <section>
+            <h3>Типизация</h3>
+            <ul>
+                <li>Иерархические</li>
+                <li>Реляционные</li>
+                <li>Объектные</li>
+                <li>Объектно-реляционные</li>
+                <li>Сетевые</li>
+                <li>...</li>
+            </ul>
+        </section>
+        <!-- 9 слайд, Реляционные БД -->
+        <section>
+            <h3>Реляционные БД</h3>
+            <p>
+                relation - отношение / связь
+            </p>
+            <p>
+                Таблица - объект БД для ввода и хранения информации. Таблица состоит из строк и столбцов.
+                Таблицы образуют структуру БД.
+            </p>
+            <p>
+                Строки - данные об одном объекте (John, Smith, 18)<br>
+                Столбцы - описание одной характерисики объекта(First name, Last name, Age)
+            </p>
+        </section>
+        <!-- 10 слайд, Транзакции -->
+        <section>
+            <h3>Транзакции</h3>
+            <p>несколько последовательных операций с БД</p>
+            Положения:<br>
+            <ul>
+                <li>выполнена полностью успешно</li>
+                <li>невыполнена</li>
+            </ul>
+        </section>
+        <!-- 11 слайд, ACID -->
+        <section>
+            <h3>ACID</h3>
+            <p>требования к СУБД(Системе управления БД)</p>
+            <ul>
+                <li>Atomicity / Атомарность</li>
+                <li>Consistency / Согласованность</li>
+                <li>Isolation / Изолированность</li>
+                <li>Durability / Долговечность</li>
+            </ul>
+        </section>
+        <!-- 12 слайд, PostgreSQL -->
+        <section>
+            <section>
+                <h3>PostgreSQL</h3>
+                <p>Особенности:</p>
+                <table class="standard">
+                    <tbody style="font-size: 28px;">
+                        <tr>
+                            <td>Максимальный размер базы данных</td>
+                            <td>Нет ограничений</td>
+                        </tr>
+                        <tr>
+                            <td>Максимальный размер таблицы</td>
+                            <td>32 Тбайт</td>
+                        </tr>
+                        <tr>
+                            <td>Максимальный размер записи</td>
+                            <td>1,6 Тбайт</td>
+                        </tr>
+                        <tr>
+                            <td>Максимальный размер поля</td>
+                            <td>1 Гбайт</td>
+                        </tr>
+                        <tr>
+                            <td>Максимум записей в таблице</td>
+                            <td>Нет ограничений</td>
+                        </tr>
+                        <tr>
+                            <td>Максимум полей в записи</td>
+                            <td>250—1600, в зависимости от типов полей</td>
+                        </tr>
+                        <tr>
+                            <td>Максимум индексов в таблице</td>
+                            <td>Нет ограничений</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+            <section>
+                <h3>Установка PostgreSQL</h3>
+                <a href="https://www.postgresql.org/download/windows/" target="_blank">https://www.postgresql.org/download/windows/</a>
+            </section>
+            <section>
+                <img src="img/pg1.jpg" alt="">
+            </section>
+            <section>
+                <img src="img/pg2.jpg" alt="">
+            </section>
+            <section>
+                <img src="img/pg3.jpg" alt="">
+            </section>
+            <section>
+                <img src="img/pg4.jpg" alt="">
+            </section>
+            <section>
+                <img src="img/pg5.jpg" alt="">
+            </section>
+            <section>
+                <img src="img/pg6.jpg" alt="">
+            </section>
+            <section>
+                <img src="img/pg7.jpg" alt="">
+            </section>
+            <section>
+                <img src="img/pg8.jpg" alt="">
+            </section>
+            <section>
+                <img src="img/pg9.jpg" alt="">
+            </section>
+            <section>
+                <img src="img/pg10.jpg" alt="">
+            </section>
+
+        </section>
+        <!-- 13 слайд, Типы данных -->
+        <section>
+            <h3>Типы данных</h3>
+            <a href="http://postgresql.ru.net/manual/datatype.html" target="_blank">
+                http://postgresql.ru.net/manual/datatype.html
+            </a>
+        </section>
+        <!-- 14 слайд, SQL и его синтаксис -->
+        <section>
+            <section>
+                <h3>SQL - язык запросов</h3>
+                <p>
+                    для создания/управления/модификации данных в базе
+                </p>
+                <ul>
+                    <li>SELECT - extracts data from a database</li>
+                    <li>UPDATE - updates data in a database</li>
+                    <li>DELETE - deletes data from a database</li>
+                    <li>INSERT INTO - inserts new data into a database</li>
+                    <li>CREATE DATABASE - creates a new database</li>
+                    <li>ALTER DATABASE - modifies a database</li>
+                    <li>CREATE TABLE - creates a new table</li>
+                    <li>ALTER TABLE - modifies a table</li>
+                    <li>DROP TABLE - deletes a table</li>
+                </ul>
+            </section>
+            <section>
+                <h3>Пример таблицы</h3>
+                <p>Users</p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>FirstName</th>
+                            <th>LastName</th>
+                            <th>Email</th>
+                            <th>Age</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>John</td>
+                            <td>Smith</td>
+                            <td>john@gmail.com</td>
+                            <td>23</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>Ryan</td>
+                            <td>Nicholson</td>
+                            <td>ryan@gmail.com</td>
+                            <td>28</td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>Mike</td>
+                            <td>Pitcher</td>
+                            <td>mike@gmail.com</td>
+                            <td>21</td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>Aaron</td>
+                            <td>Weller</td>
+                            <td>aaron@gmail.com</td>
+                            <td>34</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+            <section>
+                <h3>SELECT, выборка из таблицы</h3>
+                <pre><code class="sql" data-trim contenteditable>
+SELECT * FROM Users;
+                </code></pre>
+                <p>Комментарии в SQL</p>
+                <ul style="width: 100%;">
+                    <li>inline</li>
+                    <pre><code class="sql" data-trim contenteditable>
+SELECT * FROM Customers -- WHERE Age=21;
+                    </code></pre>
+                    <li>line</li>
+                    <pre><code class="sql" data-trim contenteditable>
+--Select all users;
+SELECT * FROM Users;
+                    </code></pre>
+                    <li>multiline</li>
+<pre><code class="sql" data-trim contenteditable>
+/*Select all the columns
+of all the records
+in the User table:*/
+SELECT * FROM Users;
+                    </code></pre>
+                </ul>
+                <pre><code class="sql" data-trim contenteditable>
+SELECT Email, /*Age,*/ FirstName  FROM Users;
+                </code></pre>
+            </section>
+            <section>
+                <h3>WHERE</h3>
+                <ul>
+                    <li>=	        Equal</li>
+                    <li><> or !=	Not equal</li>
+                    <li>>	        Greater than</li>
+                    <li><	        Less than</li>
+                    <li>>=	        Greater than or equal</li>
+                    <li><=	        Less than or equal</li>
+                    <li>BETWEEN	    Between an inclusive range</li>
+                    <li>LIKE	    Search for a pattern</li>
+                    <li>IN	        To specify multiple possible values for a column</li>
+                </ul>
+            </section>
+            <section>
+                <h3>Wildcards Characters</h3>
+                <ul>
+                    <li>%	                0 или больше</li>
+                    <li>_	                1</li>
+                    <li>[list]	            массив для поиска совпадений</li>
+                    <li>[^list] or [!list]  массив исключений</li>
+                </ul>
+            </section>
+            <section>
+                <h3>Задание</h3>
+                <p>Выбрать всех пользователей из таблицы Customers:</p>
+                <ul>
+                    <li>из Лондона</li>
+                    <!--SELECT * FROM Customers WHERE City="London";-->
+                    <li>у которых имя начинается с буквы A</li>
+                    <!--SELECT * FROM Customers WHERE CustomerName LIKE "A%";-->
+                    <li>у которых город содержит букву q и страна содержит букву a</li>
+                    <!--SELECT * FROM Customers WHERE City LIKE "%q%" AND Country LIKE "%a%";-->
+                </ul>
+                <a href="http://www.w3schools.com/sql/trysql.asp?filename=trysql_select_all" target="_blank">
+                    http://www.w3schools.com/sql/trysql.asp?filename=trysql_select_all
+                </a>
+            </section>
+            <section>
+                <h3>INSERT INTO, вставка в таблицу</h3>
+                <pre><code class="sql" data-trim contenteditable>
+INSERT INTO Customers (CustomerID, CustomerName, ContactName, Address,
+City, PostalCode, Country)
+VALUES (123, "John Smith", "Johny", "Qwerty, st. 127",
+"Kiev", "01234", "Ukraine");
+                </code></pre>
+            </section>
+            <section>
+                <h3>UPDATE, обновление в таблице</h3>
+                <pre><code class="sql" data-trim contenteditable>
+UPDATE Customers
+SET City='Kiev', ContactName="Test"
+WHERE CustomerID=1;
+                </code></pre>
+            </section>
+            <section>
+                <h3>DELETE, удаление из таблицы</h3>
+                <pre><code class="sql" data-trim contenteditable>
+DELETE FROM Customers
+WHERE City="Kiev";
+                </code></pre>
+            </section>
+            <section>
+                <h3>CREATE DATABASE, создение базы данных</h3>
+                <pre><code class="sql" data-trim contenteditable>
+CREATE DATABASE Customers;
+                </code></pre>
+            </section>
+            <section>
+                <h3>DROP DATABASE, удаление базы данных</h3>
+                <pre><code class="sql" data-trim contenteditable>
+DROP DATABASE Customers;
+                </code></pre>
+            </section>
+            <section>
+                <h3>ALTER TABLE, модификация таблицы</h3>
+                <pre><code class="sql" data-trim contenteditable>
+ALTER TABLE Customers
+ADD Birthday date;
+                </code></pre>
+            </section>
+            <section>
+                <h3>DROP TABLE, удаление таблицы</h3>
+                <pre><code class="sql" data-trim contenteditable>
+DROP TABLE Birthday;
+                </code></pre>
+            </section>
+            <section>
+                <h3>CREATE TABLE, создание таблицы</h3>
+                <pre><code class="sql" data-trim contenteditable>
+CREATE TABLE Persons
+(
+    PersonID int,
+    LastName varchar(255),
+    FirstName varchar(255),
+    Address varchar(255),
+    City varchar(255)
+);
+                </code></pre>
+            </section>
+        </section>
+    </div>
+</div>
+
+<!--<pre><code class="python" data-trim contenteditable>-->
+<!--</code></pre>-->
+<script src="lib/js/head.min.js"></script>
+<script src="js/reveal.js"></script>
+<script>
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'plugin/markdown/marked.js' },
+            { src: 'plugin/markdown/markdown.js' },
+            { src: 'plugin/notes/notes.js', async: true },
+            { src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+
+</body>
+</html>
