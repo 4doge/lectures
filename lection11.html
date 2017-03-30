@@ -1,0 +1,329 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>Базы данных.</title>
+
+    <link rel="stylesheet" href="css/reveal.css">
+    <link rel="stylesheet" href="css/theme/moon.css">
+
+    <!-- Theme used for syntax highlighting of code -->
+    <link rel="stylesheet" href="lib/css/zenburn.css">
+
+    <!-- Printing and PDF exports -->
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+</head>
+<body>
+
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h3>лекция #11</h3>
+            <h4>Продолжение БД. PyQT. Введение в Django(?)</h4>
+        </section>
+        <section>
+            <h3>Короткое содержание</h3>
+            <ol>
+                <li>Операторы PostgreSQL</li>
+                <li>Функции PostgreSQL</li>
+                <li>Aliases</li>
+                <li>JOIN</li>
+                <li>UNION</li>
+                <li>GROUP BY</li>
+            </ol>
+        </section>
+        <section>
+            <section>
+                <h3>Логические операторы</h3>
+                <ul>
+                    <li>AND</li>
+                    <li>OR</li>
+                    <li>NOT</li>
+                </ul>
+            </section>
+            <section>
+                <h3>Операторы сравнения</h3>
+                <ul>
+                    <li>&lt;</li>
+                    <li>&gt;</li>
+                    <li>&lt;=</li>
+                    <li>&gt;=</li>
+                    <li>=</li>
+                    <li>&lt;&gt; или !=</li>
+                </ul>
+            </section>
+            <section>
+                <h3>Математические операторы</h3>
+                <pre><code class="sql" data-trim contenteditable>
+SELECT AVG(Price)+123 FROM Products
+                </code></pre>
+                <table style="font-size: 26px;">
+                    <thead>
+                        <tr>
+                            <th>Оператор</th>
+                            <th>Описание</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>+</td>
+                            <td>сложение</td>
+                        </tr>
+                        <tr>
+                            <td>-</td>
+                            <td>вычитание</td>
+                        </tr>
+                        <tr>
+                            <td>*</td>
+                            <td>умножение</td>
+                        </tr>
+                        <tr>
+                            <td>/</td>
+                            <td>деление</td>
+                        </tr>
+                        <tr>
+                            <td>%</td>
+                            <td>деление нацело</td>
+                        </tr>
+                        <tr>
+                            <td>^</td>
+                            <td>степень</td>
+                        </tr>
+                        <tr>
+                            <td>|/</td>
+                            <td>квадратный корень</td>
+                        </tr>
+                        <tr>
+                            <td>!</td>
+                            <td>факториал</td>
+                        </tr>
+                        <tr>
+                            <td>@</td>
+                            <td>модуль</td>
+                        </tr>
+                        <tr>
+                            <td>-</td>
+                            <td>вычитание</td>
+                        </tr>
+                        <tr>
+                            <td>...</td>
+                            <td>...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h3>Математические функции</h3>
+                <pre><code class="sql" data-trim contenteditable>
+SELECT AVG(Price) FROM Products
+                </code></pre>
+                <table style="font-size: 26px;">
+                    <thead>
+                        <tr>
+                            <th>Функция</th>
+                            <th>Описание</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>round()</td>
+                            <td>округление</td>
+                        </tr>
+                        <tr>
+                            <td>abs()</td>
+                            <td>модуль</td>
+                        </tr>
+                        <tr>
+                            <td>ln()</td>
+                            <td>натуральный логарифм</td>
+                        </tr>
+                        <tr>
+                            <td>log()</td>
+                            <td>целый логарифм</td>
+                        </tr>
+                        <tr>
+                            <td>mod()</td>
+                            <td>остаток от деления</td>
+                        </tr>
+                        <tr>
+                            <td>...</td>
+                            <td>...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+            <section>
+                <h3>Тригонометрические функции</h3>
+                <table style="font-size: 26px;">
+                    <thead>
+                        <tr>
+                            <th>Функция</th>
+                            <th>Описание</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>acos()</td>
+                            <td>арккосинус</td>
+                        </tr>
+                        <tr>
+                            <td>asin()</td>
+                            <td>арксинус</td>
+                        </tr>
+                        <tr>
+                            <td>atan()</td>
+                            <td>арктангенс</td>
+                        </tr>
+                        <tr>
+                            <td>atan2()</td>
+                            <td>арктангенс y/x</td>
+                        </tr>
+                        <tr>
+                            <td>cos()</td>
+                            <td>косинус</td>
+                        </tr>
+                        <tr>
+                            <td>cot()</td>
+                            <td>котангенс</td>
+                        </tr>
+                        <tr>
+                            <td>sin()</td>
+                            <td>синус</td>
+                        </tr>
+                        <tr>
+                            <td>tan()</td>
+                            <td>тангенс</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+        </section>
+        <section>
+            <h3>Aliases</h3>
+            <p>Нужны для кастомизации имени таблицы/поля в таблице.</p>
+<pre><code class="sql" data-trim contenteditable>
+-- column
+SELECT column_name AS alias_name FROM table_name;
+SELECT CustomerID as ID, CustomerName AS Customer FROM Customers;
+-- table
+SELECT column_name(s) FROM table_name AS alias_name;
+</code></pre>
+        </section>
+        <section>
+            <section>
+                <h3>JOIN</h3>
+                <p>Необходим для объединения строк из разных таблиц благодаря общему полю.</p>
+                <ul>
+                    <li>INNER</li>
+                    <li>LEFT</li>
+                    <li>RIGHT</li>
+                    <li>FULL</li>
+                    <li>SELF</li>
+                </ul>
+            </section>
+            <section>
+                <h3>INNER JOIN</h3>
+                <img src="img/lec11/inner.jpg" alt="">
+<pre><code class="sql" data-trim contenteditable>
+SELECT Orders.OrderID, Customers.CustomerName, Orders.OrderDate
+FROM Orders
+INNER JOIN Customers ON Orders.CustomerID=Customers.CustomerID;
+</code></pre>
+            </section>
+            <section>
+                <h3>LEFT JOIN</h3>
+                <img src="img/lec11/left.jpg" alt="">
+<pre><code class="sql" data-trim contenteditable>
+SELECT column_name(s)
+FROM table1
+LEFT JOIN table2 ON table1.column_name = table2.column_name;
+</code></pre>
+            </section>
+            <section>
+                <h3>RIGHT JOIN</h3>
+                <img src="img/lec11/right.jpg" alt="">
+<pre><code class="sql" data-trim contenteditable>
+SELECT column_name(s)
+FROM table1
+RIGHT JOIN table2 ON table1.column_name = table2.column_name;
+</code></pre>
+            </section>
+            <section>
+                <h3>FULL JOIN</h3>
+<pre><code class="sql" data-trim contenteditable>
+SELECT column_name(s)
+FROM table1
+FULL OUTER JOIN table2 ON table1.column_name = table2.column_name;
+</code></pre>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h3>UNION</h3>
+                <p>Оператор для объединения нескольких выборок из БД</p>
+                <ul>
+                    <li>UNION</li>
+                    <li>UNION ALL</li>
+                </ul>
+            </section>
+            <section>
+                <h3>UNION</h3>
+<pre><code class="sql" data-trim contenteditable>
+SELECT column_name(s) FROM table1
+UNION
+SELECT column_name(s) FROM table2;
+</code></pre>
+            </section>
+            <section>
+                <h3>UNION ALL</h3>
+<pre><code class="sql" data-trim contenteditable>
+SELECT column_name(s) FROM table1
+UNION ALL
+SELECT column_name(s) FROM table2;
+</code></pre>
+            </section>
+        </section>
+        <section>
+            <h3>GROUP BY</h3>
+            <p>Группировка данных по одному или нескольким полям</p>
+<pre><code class="sql" data-trim contenteditable>
+SELECT column_name(s)
+FROM table_name
+WHERE condition
+GROUP BY column_name(s)
+ORDER BY column_name(s);
+</code></pre>
+        </section>
+    </div>
+</div>
+
+<!--http://postgresql.ru.net/manual/functions.html-->
+
+<!--<pre><code class="python" data-trim contenteditable>-->
+<!--</code></pre>-->
+<script src="lib/js/head.min.js"></script>
+<script src="js/reveal.js"></script>
+<script>
+    Reveal.initialize({
+        history: true,
+        dependencies: [
+            { src: 'plugin/markdown/marked.js' },
+            { src: 'plugin/markdown/markdown.js' },
+            { src: 'plugin/notes/notes.js', async: true },
+            { src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+        ]
+    });
+</script>
+
+</body>
+</html>
